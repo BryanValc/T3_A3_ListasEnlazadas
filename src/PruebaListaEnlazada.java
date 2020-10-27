@@ -125,6 +125,9 @@ public class PruebaListaEnlazada {
 		System.out.println(num==-1?"Lista Vacia":num==-99999?"No se encontro el dato":num+" se eliminó correctamente");
 		num = miListaEnlazada.eliminarDatoEspecifico(3);
 		System.out.println(num==-1?"Lista Vacia":num==-99999?"No se encontro el dato":num+" se eliminó correctamente");
+		if (miListaEnlazada.listaVacia()) {
+			System.out.println("LISTA VACIA");
+		}
 	}
 
 }
