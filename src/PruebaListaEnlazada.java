@@ -43,14 +43,26 @@ class ListaEnlazada{
 	public boolean listaVacia() {
 		return (nodoInicio == null)&&(nodoFin == null);
 	}
-	
 	public void agregarElementoAlInicio(int dato){
 		Nodo nuevoNodo=new Nodo(dato);
-		if (nodoInicio==null) {
+		if (this.listaVacia()) {
 			this.nodoInicio=this.nodoFin=nuevoNodo;
 		}else {
 			nuevoNodo.setNodoSiguiente(nodoInicio);
 			this.nodoInicio = nuevoNodo;
+		}
+	}
+	public void agregarElementoAlFinal(int dato){
+		Nodo nuevoNodo=new Nodo(dato);
+		if (this.listaVacia()) {
+			this.agregarElementoAlInicio(dato);
+		}else {
+			Nodo nodoActual;
+			nodoActual = nodoInicio;
+			while(nodoActual.getNodoSiguiente()!=null){
+				nodoActual=nodoActual.getNodoSiguiente();
+			}
+			nodoActual.setNodoSiguiente(nuevoNodo);
 		}
 	}
 	
@@ -111,12 +123,15 @@ public class PruebaListaEnlazada {
 
 		ListaEnlazada miListaEnlazada = new ListaEnlazada();
 		
-		//miListaEnlazada.agregarElementoAlInicio(7);
-		//miListaEnlazada.agregarElementoAlInicio(6);
-		//miListaEnlazada.agregarElementoAlInicio(5);
+		/*miListaEnlazada.agregarElementoAlInicio(7);
+		miListaEnlazada.agregarElementoAlInicio(6);
+		miListaEnlazada.agregarElementoAlInicio(5);*/
 
-		//miListaEnlazada.agregarElementoAlInicio(3);
-		//miListaEnlazada.agregarElementoAlInicio(4);
+		miListaEnlazada.agregarElementoAlInicio(3);
+		miListaEnlazada.agregarElementoAlInicio(4);
+		miListaEnlazada.agregarElementoAlInicio(3);
+		miListaEnlazada.agregarElementoAlInicio(3);
+		miListaEnlazada.agregarElementoAlInicio(4);
 		miListaEnlazada.agregarElementoAlInicio(3);
 		miListaEnlazada.mostrarElementos();
 		int num = miListaEnlazada.eliminarDatoEspecifico(3);
@@ -125,9 +140,12 @@ public class PruebaListaEnlazada {
 		System.out.println(num==-1?"Lista Vacia":num==-99999?"No se encontro el dato":num+" se eliminó correctamente");
 		num = miListaEnlazada.eliminarDatoEspecifico(3);
 		System.out.println(num==-1?"Lista Vacia":num==-99999?"No se encontro el dato":num+" se eliminó correctamente");
-		if (miListaEnlazada.listaVacia()) {
+		miListaEnlazada.agregarElementoAlFinal(100);
+		miListaEnlazada.mostrarElementos();
+		
+		/*if (miListaEnlazada.listaVacia()) {
 			System.out.println("LISTA VACIA");
-		}
+		}*/
 	}
 
 }
