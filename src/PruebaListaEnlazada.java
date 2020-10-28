@@ -94,7 +94,7 @@ class ListaEnlazada{
 		}
 	}
 	
-	public int eliiminarDatoInicio() {
+	public int eliminarDatoInicio() {
 		if (this.listaVacia()) {
 			System.out.println("la lista ya estaba vacia");
 			return -1;
@@ -103,6 +103,29 @@ class ListaEnlazada{
 			int ret = nodoActual.getDato();
 			nodoInicio=nodoActual.getNodoSiguiente();
 			return ret;
+		}
+	}
+	public int eliminarDatoFinal() {
+		if (this.listaVacia()) {
+			System.out.println("la lista ya estaba vacia");
+			return -1;
+		}else {
+			Nodo nodoAnterior, nodoSiguiente;
+			nodoAnterior = nodoInicio;
+			nodoSiguiente = nodoInicio.getNodoSiguiente();
+			if (nodoSiguiente==null) {
+				int ret = nodoInicio.getDato();
+				nodoInicio=nodoFin=null;
+				return ret;
+			}else {
+				while(nodoSiguiente.getNodoSiguiente()!=null) {
+					nodoAnterior = nodoAnterior.getNodoSiguiente();
+					nodoSiguiente = nodoSiguiente.getNodoSiguiente();
+				}
+				int ret = nodoSiguiente.getDato();
+				nodoAnterior.setNodoSiguiente(null);
+				return ret;
+			}
 		}
 	}
 	public int eliminarDatoEspecifico(int dato) {
@@ -166,7 +189,7 @@ public class PruebaListaEnlazada {
 		miListaEnlazada.agregarElementoAlInicio(6);
 		miListaEnlazada.agregarElementoAlInicio(5);*/
 
-		miListaEnlazada.agregarElementoAlInicio(3);
+		/*miListaEnlazada.agregarElementoAlInicio(3);
 		miListaEnlazada.agregarElementoAlInicio(4);
 		miListaEnlazada.agregarElementoAlInicio(3);
 		miListaEnlazada.agregarElementoAlInicio(3);
@@ -184,7 +207,12 @@ public class PruebaListaEnlazada {
 		miListaEnlazada.mostrarElementos();
 		miListaEnlazada.agregarElementoPosicionEspecifica(33,4);
 		miListaEnlazada.mostrarElementos();
-		System.out.println(miListaEnlazada.eliiminarDatoInicio());
+		System.out.println(miListaEnlazada.eliminarDatoInicio());
+		miListaEnlazada.mostrarElementos();*/
+		
+		
+		miListaEnlazada.agregarElementoAlInicio(3);
+		System.out.println(miListaEnlazada.eliminarDatoFinal());
 		miListaEnlazada.mostrarElementos();
 		
 		/*if (miListaEnlazada.listaVacia()) {
