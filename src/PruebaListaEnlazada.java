@@ -167,11 +167,13 @@ class ListaEnlazada{
 	
 	public void mostrarElementos() {
 		Nodo nodoActual = nodoInicio;
+		int cc=0;
 		while(nodoActual!=null){
+			cc+=1;
 			System.out.print("["+nodoActual.getDato()+"]-->");
 			nodoActual=nodoActual.getNodoSiguiente();
 		}
-		System.out.println();
+		System.out.println(cc+" elementos\n");
 	}
 	
 	
@@ -189,14 +191,14 @@ public class PruebaListaEnlazada {
 		miListaEnlazada.agregarElementoAlInicio(6);
 		miListaEnlazada.agregarElementoAlInicio(5);*/
 
-		/*miListaEnlazada.agregarElementoAlInicio(3);
+		miListaEnlazada.agregarElementoAlInicio(3);
 		miListaEnlazada.agregarElementoAlInicio(4);
 		miListaEnlazada.agregarElementoAlInicio(3);
 		miListaEnlazada.agregarElementoAlInicio(3);
 		miListaEnlazada.agregarElementoAlInicio(4);
 		miListaEnlazada.agregarElementoAlInicio(3);
 		miListaEnlazada.mostrarElementos();
-		int num = miListaEnlazada.eliminarDatoEspecifico(3);
+		/*int num = miListaEnlazada.eliminarDatoEspecifico(3);
 		miListaEnlazada.mostrarElementos();
 		
 		System.out.println(num==-1?"Lista Vacia":num==-99999?"No se encontro el dato":num+" se eliminó correctamente");
