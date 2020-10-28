@@ -43,6 +43,7 @@ class ListaEnlazada{
 	public boolean listaVacia() {
 		return (nodoInicio == null)&&(nodoFin == null);
 	}
+	
 	public void agregarElementoAlInicio(int dato){
 		Nodo nuevoNodo=new Nodo(dato);
 		if (this.listaVacia()) {
@@ -65,7 +66,45 @@ class ListaEnlazada{
 			nodoActual.setNodoSiguiente(nuevoNodo);
 		}
 	}
+	public void agregarElementoPosicionEspecifica(int dato, int posicion){
+		Nodo nuevoNodo=new Nodo(dato);
+		int cc=0;
+		
+		if (this.listaVacia()||(posicion==1)) {
+			System.out.println(this.listaVacia()?"La lista estaba vacia, se puso como único elemento":"la posicion era 1, por tanto se puso en el inicio");
+			this.agregarElementoAlInicio(dato);
+		}else {
+			Nodo nodoAnterior, nodoSiguiente;
+			nodoAnterior = nodoInicio;
+			nodoSiguiente = nodoInicio.getNodoSiguiente();
+			try {
+				while(cc++<(posicion-2)){
+					nodoAnterior = nodoAnterior.getNodoSiguiente();
+					nodoSiguiente = nodoSiguiente.getNodoSiguiente();
+				}
+				nuevoNodo.setNodoSiguiente(nodoSiguiente);
+				nodoAnterior.setNodoSiguiente(nuevoNodo);
+			}catch(NullPointerException e){
+				System.out.println("el indice esta fuera de los limites, sera colocado al final");
+				this.agregarElementoAlFinal(dato);
+			}
+			
+			
+			
+		}
+	}
 	
+	public int eliiminarDatoInicio() {
+		if (this.listaVacia()) {
+			System.out.println("la lista ya estaba vacia");
+			return -1;
+		}else {
+			Nodo nodoActual=nodoInicio;
+			int ret = nodoActual.getDato();
+			nodoInicio=nodoActual.getNodoSiguiente();
+			return ret;
+		}
+	}
 	public int eliminarDatoEspecifico(int dato) {
 		if (nodoInicio==null) {
 			return -1;
@@ -141,6 +180,11 @@ public class PruebaListaEnlazada {
 		num = miListaEnlazada.eliminarDatoEspecifico(3);
 		System.out.println(num==-1?"Lista Vacia":num==-99999?"No se encontro el dato":num+" se eliminó correctamente");
 		miListaEnlazada.agregarElementoAlFinal(100);
+		System.out.println("========================");
+		miListaEnlazada.mostrarElementos();
+		miListaEnlazada.agregarElementoPosicionEspecifica(33,4);
+		miListaEnlazada.mostrarElementos();
+		System.out.println(miListaEnlazada.eliiminarDatoInicio());
 		miListaEnlazada.mostrarElementos();
 		
 		/*if (miListaEnlazada.listaVacia()) {
