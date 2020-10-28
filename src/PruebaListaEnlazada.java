@@ -1,6 +1,30 @@
 import java.util.LinkedList;
+import java.util.Scanner;
 
-
+interface Validacion{
+	Scanner input = new Scanner(System.in);
+	
+	public static int validacionNatural() {
+		int ret = 0;
+		boolean err = false;
+		do {
+			try {
+				ret = input.nextInt();
+			} catch (java.util.InputMismatchException e) {
+				System.out.println("entrada no valida, intente de nuevo:");
+				input.nextLine();
+				err=true;
+			}
+			if (ret>0) {
+				err=false;
+			}else {
+				System.out.println("solo números naturales");
+				err=true;
+			}
+		}while(err);
+		return ret;
+	}
+}
 
 class Nodo{
 	//prvate Alumno dato
@@ -165,15 +189,22 @@ class ListaEnlazada{
 		}
 	}
 	
-	public void mostrarElementos() {
+	public void mostrarCantidadElementos() {
 		Nodo nodoActual = nodoInicio;
 		int cc=0;
 		while(nodoActual!=null){
 			cc+=1;
+			nodoActual=nodoActual.getNodoSiguiente();
+		}
+		System.out.println("Cantidad de elementos:"+cc);
+	}
+	public void mostrarElementos() {
+		Nodo nodoActual = nodoInicio;
+		while(nodoActual!=null){
 			System.out.print("["+nodoActual.getDato()+"]-->");
 			nodoActual=nodoActual.getNodoSiguiente();
 		}
-		System.out.println(cc+" elementos\n");
+		System.out.println();
 	}
 	
 	
@@ -182,44 +213,99 @@ class ListaEnlazada{
 public class PruebaListaEnlazada {
 
 	public static void main(String[] args) {
-		
-		//LinkedList<Integer> le = new LinkedList<Integer>();
 
 		ListaEnlazada miListaEnlazada = new ListaEnlazada();
 		
-		/*miListaEnlazada.agregarElementoAlInicio(7);
-		miListaEnlazada.agregarElementoAlInicio(6);
-		miListaEnlazada.agregarElementoAlInicio(5);*/
-
-		miListaEnlazada.agregarElementoAlInicio(3);
-		miListaEnlazada.agregarElementoAlInicio(4);
-		miListaEnlazada.agregarElementoAlInicio(3);
-		miListaEnlazada.agregarElementoAlInicio(3);
-		miListaEnlazada.agregarElementoAlInicio(4);
-		miListaEnlazada.agregarElementoAlInicio(3);
-		miListaEnlazada.mostrarElementos();
-		/*int num = miListaEnlazada.eliminarDatoEspecifico(3);
-		miListaEnlazada.mostrarElementos();
 		
-		System.out.println(num==-1?"Lista Vacia":num==-99999?"No se encontro el dato":num+" se eliminó correctamente");
-		num = miListaEnlazada.eliminarDatoEspecifico(3);
-		System.out.println(num==-1?"Lista Vacia":num==-99999?"No se encontro el dato":num+" se eliminó correctamente");
-		miListaEnlazada.agregarElementoAlFinal(100);
-		System.out.println("========================");
-		miListaEnlazada.mostrarElementos();
-		miListaEnlazada.agregarElementoPosicionEspecifica(33,4);
-		miListaEnlazada.mostrarElementos();
-		System.out.println(miListaEnlazada.eliminarDatoInicio());
-		miListaEnlazada.mostrarElementos();*/
+		byte opc=0;
+		int dato;
 		
+		boolean salir=false;
+		boolean salir1=false;
 		
-		miListaEnlazada.agregarElementoAlInicio(3);
-		System.out.println(miListaEnlazada.eliminarDatoFinal());
-		miListaEnlazada.mostrarElementos();
+		do {
+			System.out.println("1)Crear Lista\n2)Verificar Lista vacia\n3)Insertar elemento\n4)Eliminar elemento\n5)Mostrar cantidad de elementos\n6)Salir");
+			opc = (byte) Validacion.validacionNatural();
+			switch (opc) {
+			case 1:
+				miListaEnlazada = new ListaEnlazada();
+				System.out.println("Lista creada exitosamente");
+				break;
+			case 2:
+				System.out.println(miListaEnlazada.listaVacia()?"La lista esta vacia":"La lista NO esta vacia");break;
+			case 3:
+				do {
+					salir=false;
+					System.out.println("1)Inicio\n2)Final\n3)En posicion especifica\n4)Salir");
+					opc = (byte) Validacion.validacionNatural();
+					
+					switch (opc) {
+					case 1:
+						System.out.println("Elemento(entero):");
+						dato = Validacion.validacionNatural();
+						miListaEnlazada.agregarElementoAlInicio(dato);
+						break;
+					case 2:
+						System.out.println("Elemento(entero):");
+						dato = Validacion.validacionNatural();
+						miListaEnlazada.agregarElementoAlFinal(dato);
+						break;
+					case 3:
+						System.out.println("Elemento(entero):");
+						dato = Validacion.validacionNatural();
+						System.out.println("Posicion:");
+						int posicion = Validacion.validacionNatural();
+						miListaEnlazada.agregarElementoPosicionEspecifica(dato, posicion);
+						break;
+					case 4:
+						salir=true;
+						break;
+					default:
+						System.out.println("Opcion no valida");
+						break;
+					}
+					
+				} while (!salir);
+				miListaEnlazada.mostrarElementos();
+				break;
+			case 4:
+				do {
+					salir=false;
+					System.out.println("1)Inicio\n2)Final\n3)Elemento especifico\n4)Salir");
+					opc = (byte) Validacion.validacionNatural();
+					switch (opc) {
+					case 1:
+						miListaEnlazada.eliminarDatoInicio();
+						break;
+					case 2:
+						miListaEnlazada.eliminarDatoFinal();
+						break;
+					case 3:
+						System.out.println("Elemento a eliminar:");
+						dato = Validacion.validacionNatural();
+						miListaEnlazada.eliminarDatoEspecifico(dato);
+						break;
+					case 4:
+						salir=true;
+						break;
+					default:
+						System.out.println("Opcion no valida");
+						break;
+					}
+				} while (!salir);
+				miListaEnlazada.mostrarElementos();
+				break;
+			case 5:
+				miListaEnlazada.mostrarCantidadElementos();break;
+			case 6:
+				salir1=true;break;
+			default:
+				System.out.println("Opcion no valida");break;
+			}
+		} while (!salir1);
+		System.out.println();
+		System.out.println("Fin de ejecucion");
 		
-		/*if (miListaEnlazada.listaVacia()) {
-			System.out.println("LISTA VACIA");
-		}*/
 	}
 
 }
