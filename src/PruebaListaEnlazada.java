@@ -120,20 +120,20 @@ class ListaEnlazada{
 	
 	public int eliminarDatoInicio() {
 		if (this.listaVacia()) {
-			System.out.println("la lista ya estaba vacia");
 			return -1;
-		}else {
+		}else try{
 			Nodo nodoActual=nodoInicio;
 			int ret = nodoActual.getDato();
 			nodoInicio=nodoActual.getNodoSiguiente();
 			return ret;
+		}catch (Exception e) {
+			return -1;
 		}
 	}
 	public int eliminarDatoFinal() {
 		if (this.listaVacia()) {
-			System.out.println("la lista ya estaba vacia");
 			return -1;
-		}else {
+		}else try{
 			Nodo nodoAnterior, nodoSiguiente;
 			nodoAnterior = nodoInicio;
 			nodoSiguiente = nodoInicio.getNodoSiguiente();
@@ -150,6 +150,8 @@ class ListaEnlazada{
 				nodoAnterior.setNodoSiguiente(null);
 				return ret;
 			}
+		}catch (Exception e) {
+			return -1;
 		}
 	}
 	public int eliminarDatoEspecifico(int dato) {
@@ -196,7 +198,7 @@ class ListaEnlazada{
 			cc+=1;
 			nodoActual=nodoActual.getNodoSiguiente();
 		}
-		System.out.println("Cantidad de elementos:"+cc);
+		System.out.println("Cantidad de elementos: "+cc);
 	}
 	public void mostrarElementos() {
 		Nodo nodoActual = nodoInicio;
@@ -218,7 +220,7 @@ public class PruebaListaEnlazada {
 		
 		
 		byte opc=0;
-		int dato;
+		int dato,num;
 		
 		boolean salir=false;
 		boolean salir1=false;
@@ -275,15 +277,18 @@ public class PruebaListaEnlazada {
 					opc = (byte) Validacion.validacionNatural();
 					switch (opc) {
 					case 1:
-						miListaEnlazada.eliminarDatoInicio();
+						num=miListaEnlazada.eliminarDatoInicio();
+						System.out.println(num==-1?"Lista Vacia":num==-99999?"No se encontro el dato":num+" se eliminó correctamente");
 						break;
 					case 2:
-						miListaEnlazada.eliminarDatoFinal();
+						num=miListaEnlazada.eliminarDatoFinal();
+						System.out.println(num==-1?"Lista Vacia":num==-99999?"No se encontro el dato":num+" se eliminó correctamente");
 						break;
 					case 3:
 						System.out.println("Elemento a eliminar:");
 						dato = Validacion.validacionNatural();
-						miListaEnlazada.eliminarDatoEspecifico(dato);
+						num=miListaEnlazada.eliminarDatoEspecifico(dato);
+						System.out.println(num==-1?"Lista Vacia":num==-99999?"No se encontro el dato":num+" se eliminó correctamente");
 						break;
 					case 4:
 						salir=true;
