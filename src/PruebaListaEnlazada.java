@@ -112,10 +112,8 @@ class ListaEnlazada{
 				System.out.println("el indice esta fuera de los limites, sera colocado al final");
 				this.agregarElementoAlFinal(dato);
 			}
-			
-			
-			
 		}
+		
 	}
 	
 	public int eliminarDatoInicio() {
@@ -160,7 +158,8 @@ class ListaEnlazada{
 		}else if(nodoInicio==nodoFin&&nodoInicio.getDato()==dato){
 			System.out.println("encontrado en el primer NODO");
 			int n = nodoInicio.getDato();
-			nodoInicio=nodoFin=null;
+			nodoInicio=nodoInicio.getNodoSiguiente();
+			nodoFin=nodoInicio;
 			return n;
 		}else {
 			Nodo nodoAnterior, nodoSiguiente;
